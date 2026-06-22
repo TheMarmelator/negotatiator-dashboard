@@ -27,7 +27,7 @@ docker build .
 docker compose up --build
 ```
 
-The dashboard runs at [http://localhost:3000](http://localhost:3000). Call data is persisted in a Docker volume (`calls-data`).
+The dashboard runs at [http://localhost:3022](http://localhost:3022). Call data is persisted in a Docker volume (`calls-data`).
 
 ## Ingest API
 
