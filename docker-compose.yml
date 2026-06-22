@@ -5,6 +5,8 @@ services:
       - "3000:3000"
     environment:
       INGEST_API_KEY: ${INGEST_API_KEY:-change-me-in-production}
+      DASHBOARD_USER: ${DASHBOARD_USER:-admin}
+      DASHBOARD_PASSWORD: ${DASHBOARD_PASSWORD:-change-me-in-production}
       DATA_FILE_PATH: /app/data/calls.json
     volumes:
       - calls-data:/app/data

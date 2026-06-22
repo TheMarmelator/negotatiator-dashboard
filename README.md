@@ -8,19 +8,19 @@ A Next.js dashboard for visualizing inbound carrier negotiation call metrics. Da
 
 ```bash
 cp .env.example .env
-# Edit .env and set INGEST_API_KEY
+# Edit .env and set INGEST_API_KEY, DASHBOARD_USER, and DASHBOARD_PASSWORD
 
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) for the dashboard.
+Open [http://localhost:3000](http://localhost:3000) for the dashboard. Your browser will prompt for the dashboard username and password configured in `.env`.
 
 ### Docker
 
 ```bash
 cp .env.example .env
-# Set INGEST_API_KEY in .env
+# Set INGEST_API_KEY, DASHBOARD_USER, and DASHBOARD_PASSWORD in .env
 
 docker build .
 
@@ -158,7 +158,11 @@ curl -X POST http://localhost:3000/api/calls \
 | Variable | Required | Description |
 |---|---|---|
 | `INGEST_API_KEY` | Yes | Secret key for the ingest endpoint |
+| `DASHBOARD_USER` | Yes | Username for dashboard HTTP basic authentication |
+| `DASHBOARD_PASSWORD` | Yes | Password for dashboard HTTP basic authentication |
 | `DATA_FILE_PATH` | No | Path to JSON storage file (default: `./data/calls.json`) |
+
+The server validates that `INGEST_API_KEY`, `DASHBOARD_USER`, and `DASHBOARD_PASSWORD` are set on startup. All routes except `/api/calls` require basic authentication.
 
 ## Project structure
 
@@ -170,7 +174,8 @@ src/
 │   └── layout.tsx
 ├── components/dashboard/    # UI components
 └── lib/
-    ├── auth.ts              # API key validation
+    ├── auth.ts              # API key + basic auth validation
+    ├── env.ts               # Required env validation
     ├── storage.ts           # JSON file persistence
     ├── validation.ts        # Zod payload schema
     ├── stats.ts             # Aggregation helpers
