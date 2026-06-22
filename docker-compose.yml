@@ -1,0 +1,14 @@
+services:
+  dashboard:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      INGEST_API_KEY: ${INGEST_API_KEY:-change-me-in-production}
+      DATA_FILE_PATH: /app/data/calls.json
+    volumes:
+      - calls-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  calls-data:
